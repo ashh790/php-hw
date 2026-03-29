@@ -17,7 +17,10 @@
    <select name ="Gender">
     <option value ="Male">Male</option>
     <option value ="Female">FeMale</option>
-    <option value ="Other">other</option>
+    <option value ="Gay">Gay</option>
+    <option value ="Bisexual">Bisexual</option>
+    <option value ="Lesbian">Lesbiam</option>
+    <option value ="Non-Binary">other</option>
 </select>
 
     <button type="submit" value="Submit">Submit</button><br>
