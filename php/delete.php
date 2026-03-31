@@ -26,5 +26,5 @@ if($_SERVER["REQUEST_METHOD"]==="POST"){
         echo "Not Deleted";
     }
     }
-    ?>
     echo "<script>alert('Data Deleted')</script>";
+    ?>
