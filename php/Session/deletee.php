@@ -18,7 +18,7 @@
         <form method="POST">
 
             <div class="mb-3">
-                <label class="form-label">Product_id</label>
+                <label class="form-label">Employee Id</label>
                 <input type="text" name="product_id" class="form-control" required>
             </div>
 
@@ -35,21 +35,12 @@
 <?php
 include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    $product_id = $_POST["product_id"];
-
-    if($_SERVER["REQUEST_METHOD"]==="POST"){
-        $product_id=$_POST["product_id"];
-    
-        $sql=$conn->prepare("delete from product where product_id=?");
-        $sql->bind_param('i',$product_id);
-        if($sql->execute()){
-            echo "Data Deleted";
-        }else{
-            echo "Not Deleted";
-        }
-        }
+if (isset($_GET["id"])){
+    $id=$_GET["id"];
+    $sql=$conn->prepare("delete from employee where id=?");
+    $sql->bind_param('i',$id);
+    if($sql->execute()){
+        header("Location:home.php");
     }
-        echo "<script>alert('Data Deleted')</script>";
-        ?>
+}
+?>

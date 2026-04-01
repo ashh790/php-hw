@@ -1,23 +1,28 @@
 <?php
-
-session_start();
-
 include 'db.php';
-if($_SERVER["REQUEST_METHOD"]==="POST"){
-    $name=$_POST["name"];
-    $password=$_POST["password"];
 
-    $sql=$conn->prepare("select password from user where name=?");
-    $sql->bind_param('s',$name);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = trim($_POST["name"]);
+    $pass = trim($_POST["password"]);
+
+    $sql = $conn->prepare("SELECT password FROM user WHERE name = ?");
+    $sql->bind_param("s", $name);
     $sql->execute();
     $sql->store_result();
-    $sql->bind_result($password);
-    if($sql->fetch()&&password_verify($pass,$password)){
-        $_SESSION["name"]=$name;
-        header("Location: home.php");
-    }
-    else{
-        echo"Invalid Credentials";
+
+    if ($sql->num_rows > 0) {
+        $sql->bind_result($hashedPassword);
+        $sql->fetch();
+
+        if (password_verify($pass, $hashedPassword)) {
+            $_SESSION["name"] = $name;
+            header("Location: home.php");
+            exit();
+        } else {
+            echo "Wrong password";
+        }
+    } else {
+        echo "User not found";
     }
 }
 ?>
